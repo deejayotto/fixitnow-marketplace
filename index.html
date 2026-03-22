@@ -9,7 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-  <script src="https://unpkg.com/lucide-react@0.383.0/dist/umd/lucide-react.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #fafafa; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -25,15 +25,80 @@
   <script type="text/babel">
     // React hooks
     const { useState, useEffect, useCallback, useMemo, createContext, useContext } = React;
-    // Lucide icons
-    const {
-      Search, MapPin, Star, ChevronRight, ChevronDown, ArrowLeft, User, Shield, Clock,
-      Zap, Droplets, Wind, Wrench, Lock, UtensilsCrossed, Sparkles, ShieldCheck,
-      Camera, FileText, CheckCircle2, XCircle, AlertCircle, DollarSign, Calendar,
-      MessageSquare, TrendingUp, Users, BarChart3, Eye, ThumbsUp, Send, Plus,
-      Home, Settings, LogOut, Bell, Filter, CreditCard, Receipt, Building2,
-      Globe, ChevronLeft, Menu, X, Upload, Briefcase, Award, Phone, Mail
-    } = LucideReact;
+    // Lucide icons - create React components from vanilla lucide icon data
+    const createLucideIcon = (iconData) => {
+      const IconComponent = ({ size = 24, color = "currentColor", strokeWidth = 2, fill = "none", style, ...rest }) => {
+        const buildChildren = (children) => {
+          if (!children) return null;
+          return children.map((child, i) => {
+            const [tag, attrs] = child;
+            const reactAttrs = {};
+            for (const [key, val] of Object.entries(attrs || {})) {
+              const reactKey = key.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+              reactAttrs[reactKey] = val;
+            }
+            return React.createElement(tag, { key: i, ...reactAttrs });
+          });
+        };
+        return React.createElement("svg", {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: size, height: size, viewBox: "0 0 24 24",
+          fill: fill, stroke: color, strokeWidth: strokeWidth,
+          strokeLinecap: "round", strokeLinejoin: "round",
+          style: style, ...rest
+        }, buildChildren(iconData[2]));
+      };
+      return IconComponent;
+    };
+    const Search = createLucideIcon(lucide.Search);
+    const MapPin = createLucideIcon(lucide.MapPin);
+    const Star = createLucideIcon(lucide.Star);
+    const ChevronRight = createLucideIcon(lucide.ChevronRight);
+    const ChevronDown = createLucideIcon(lucide.ChevronDown);
+    const ArrowLeft = createLucideIcon(lucide.ArrowLeft);
+    const User = createLucideIcon(lucide.User);
+    const Shield = createLucideIcon(lucide.Shield);
+    const Clock = createLucideIcon(lucide.Clock);
+    const Zap = createLucideIcon(lucide.Zap);
+    const Droplets = createLucideIcon(lucide.Droplets);
+    const Wind = createLucideIcon(lucide.Wind);
+    const Wrench = createLucideIcon(lucide.Wrench);
+    const Lock = createLucideIcon(lucide.Lock);
+    const UtensilsCrossed = createLucideIcon(lucide.UtensilsCrossed);
+    const Sparkles = createLucideIcon(lucide.Sparkles);
+    const ShieldCheck = createLucideIcon(lucide.ShieldCheck);
+    const Camera = createLucideIcon(lucide.Camera);
+    const FileText = createLucideIcon(lucide.FileText);
+    const CheckCircle2 = createLucideIcon(lucide.CheckCircle2);
+    const XCircle = createLucideIcon(lucide.XCircle);
+    const AlertCircle = createLucideIcon(lucide.AlertCircle);
+    const DollarSign = createLucideIcon(lucide.DollarSign);
+    const Calendar = createLucideIcon(lucide.Calendar);
+    const MessageSquare = createLucideIcon(lucide.MessageSquare);
+    const TrendingUp = createLucideIcon(lucide.TrendingUp);
+    const Users = createLucideIcon(lucide.Users);
+    const BarChart3 = createLucideIcon(lucide.BarChart3);
+    const Eye = createLucideIcon(lucide.Eye);
+    const ThumbsUp = createLucideIcon(lucide.ThumbsUp);
+    const Send = createLucideIcon(lucide.Send);
+    const Plus = createLucideIcon(lucide.Plus);
+    const Home = createLucideIcon(lucide.Home);
+    const Settings = createLucideIcon(lucide.Settings);
+    const LogOut = createLucideIcon(lucide.LogOut);
+    const Bell = createLucideIcon(lucide.Bell);
+    const Filter = createLucideIcon(lucide.Filter);
+    const CreditCard = createLucideIcon(lucide.CreditCard);
+    const Receipt = createLucideIcon(lucide.Receipt);
+    const Building2 = createLucideIcon(lucide.Building2);
+    const Globe = createLucideIcon(lucide.Globe);
+    const ChevronLeft = createLucideIcon(lucide.ChevronLeft);
+    const Menu = createLucideIcon(lucide.Menu);
+    const X = createLucideIcon(lucide.X);
+    const Upload = createLucideIcon(lucide.Upload);
+    const Briefcase = createLucideIcon(lucide.Briefcase);
+    const Award = createLucideIcon(lucide.Award);
+    const Phone = createLucideIcon(lucide.Phone);
+    const Mail = createLucideIcon(lucide.Mail);
 
 
 /* ─── Context ─── */
